@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262.1 83.3% 57.8%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 262.1 83.3% 57.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.glass {
+  @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg;
+}
+
+.dark .glass {
+  @apply bg-black/10 border-black/20;
+}
+
+/* Glowing Bubbles Animation */
+.glowing {
+  @apply absolute min-w-[700px] h-[550px] -m-[150px];
+  transform-origin: right;
+  animation: colorChange 5s linear infinite;
+}
+
+.glowing:nth-child(even) {
+  transform-origin: left;
+}
+
+@keyframes colorChange {
+  0% {
+    filter: hue-rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.glowing span {
+  @apply absolute;
+  top: calc(80px * var(--i));
+  left: calc(80px * var(--i));
+  bottom: calc(80px * var(--i));
+  right: calc(80px * var(--i));
+}
+
+.glowing span::before {
+  content: "";
+  @apply absolute top-1/2 -left-2 w-[15px] h-[15px] rounded-full;
+  background: #f00;
+}
+
+.glowing span:nth-child(3n + 1)::before {
+  @apply bg-primary;
+  box-shadow: 0 0 20px theme('colors.primary.DEFAULT'),
+    0 0 40px theme('colors.primary.DEFAULT'),
+    0 0 60px theme('colors.primary.DEFAULT'),
+    0 0 80px theme('colors.primary.DEFAULT'),
+    0 0 0 8px theme('colors.primary.light/10');
+}
+
+.glowing span:nth-child(3n + 2)::before {
+  @apply bg-secondary;
+  box-shadow: 0 0 20px theme('colors.secondary.DEFAULT'),
+    0 0 40px theme('colors.secondary.DEFAULT'),
+    0 0 60px theme('colors.secondary.DEFAULT'),
+    0 0 80px theme('colors.secondary.DEFAULT'),
+    0 0 0 8px theme('colors.secondary.DEFAULT/10');
+}
+
+.glowing span:nth-child(3n + 3)::before {
+  @apply bg-success;
+  box-shadow: 0 0 20px theme('colors.success.DEFAULT'),
+    0 0 40px theme('colors.success.DEFAULT'),
+    0 0 60px theme('colors.success.DEFAULT'),
+    0 0 80px theme('colors.success.DEFAULT'),
+    0 0 0 8px theme('colors.success.DEFAULT/10');
+}
+
+.glowing span:nth-child(3n + 1) {
+  animation: animate 10s alternate infinite;
+}
+
+.glowing span:nth-child(3n + 2) {
+  animation: animate-reverse 3s alternate infinite;
+}
+
+.glowing span:nth-child(3n + 3) {
+  animation: animate 8s alternate infinite; 
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate-reverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Enhanced hover animations */
+.hover-scale {
+  @apply transition-all duration-300 hover:scale-105 hover:shadow-lg;
+}
+
+.hover-lift {
+  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+}
+
+/* Enhanced Button Hover */
+.button-hover {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+.button-hover::after {
+  content: '';
+  @apply absolute inset-0 bg-white/20 scale-x-0 transition-transform duration-300 origin-left;
+}
+
+.button-hover:hover::after {
+  @apply scale-x-100;
+}
+
+/* Form Input Animations */
+.input-hover {
+  @apply transition-all duration-300;
+}
+
+.input-hover:hover {
+  @apply border-primary shadow-sm;
+}
+
+.input-hover:focus {
+  @apply border-primary ring-1 ring-primary;
+}
+
+/* Page Transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-exit {
+  opacity: 1;
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms, transform 300ms;
+}
