@@ -1,6 +1,6 @@
 # BeyondChats-Chatbot
 
-## Deployment and live preview link: https://beyondchats-chatbot.netlify.app/
+## Deployment and live preview link: https://beyondchats-chatbot.netlify.app
 
 ## Use this link:
 
